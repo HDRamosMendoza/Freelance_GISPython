@@ -1,27 +1,27 @@
 # Freelance_GISPython
 Repositorio de trabajos de automatización de freelance
 
->Name App : Calculo de angulos interiores
+>Name App 		: Calculo de angulos interiores
 
->Description: Se calcular los angulos interiores de un polígono.
+>Description	: Se calcular los angulos interiores de un polígono.
 
->Created : Heber DANIEL Ramos Mendoza (HDRamosMendoza)
+>Created 		: Heber DANIEL Ramos Mendoza (HDRamosMendoza)
 
->Email: heber.daniel.ramos.mendoza@gmail.com
+>Email			: heber.daniel.ramos.mendoza@gmail.com
 
->Position : GIS Developer
+>Position 		: GIS Developer
 
->Location : Perú/Lima/San Juan de Lurigancho
+>Location 		: Perú/Lima/San Juan de Lurigancho
 
->Social media : HDRamosMendoza
+>Social media 	: HDRamosMendoza
 
->Phone: 999130638
+>Phone			: 999130638
 
->Web: https://hdramosmendoza.github.io/Perfil-Profesional/
+>Web			: https://hdramosmendoza.github.io/Perfil-Profesional/
 
->Copyright: Heber Daniel Ramos Mendoza
+>Copyright		: Heber Daniel Ramos Mendoza
 
->Licence: Favor de mencionar al autor
+>Licence		: Favor de mencionar al autor
 
 ------------------------------------
 

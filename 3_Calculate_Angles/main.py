@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-	Name App : Calculo de angulos interiores
-	Description: Se calcular los angulos interiores de un polígono.
-	Position : GIS Developer
-	Location : Perú/Lima/San Juan de Lurigancho
-
-	Created :
-	Email:
-	Phone:
-	Web:
-	Copyright:
-	Licence:
+	Name App 	: Calculo de angulos interiores
+	Description	: Se calcular los angulos interiores de un polígono.
+	Created 	: Heber DANIEL Ramos Mendoza (HDRamosMendoza)
+	Email		: heber.daniel.ramos.mendoza@gmail.com
+	Position 	: GIS Developer
+	Location 	: Perú/Lima/San Juan de Lurigancho
+	Social media: HDRamosMendoza
+	Phone		: 999130638
+	Web			: https://hdramosmendoza.github.io/Perfil-Profesional/
+	Copyright	: Heber Daniel Ramos Mendoza
+	Licence		: Favor de mencionar al autor
 """
 
 import os
