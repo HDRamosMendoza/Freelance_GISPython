@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Leaflet - Demo</title>
+
+        <!-- Meta -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="ANALISTA SIG/GIS. Ingeniero en Sistemas e Informática, con estudios de especialización en Desarrollo Experto GIS (Esri - España). Analista desarrollador GIS con implementaciones en visores (nativo y web appbuilder), automatizaciones de tareas SIG/GIS (python -arcpy), aplicaciones web y móviles en tecnología ESRI - ArcGIS. " />
+        <meta name="author" content="Heber Daniel Ramos Mendoza" />
+        <meta name="web" content="https://hdramosmendoza.github.io/Perfil-Profesional/" />
+        <meta name="keywords" content="H. Daniel Ramos Mendoza, Daniel Ramos Mendoza, HDRamosMendoza, ArcGIS 10, ArcGIS Desktop, Developer GIS, GIS, Sistema de Información Geográfica, SIG, Gis Corporativo, Analista Programador GIS" />
+   
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <!-- JS -->
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+        
+        <style>
+            .map {
+                height: 100%;
+                width: 100%;
+                height: 100vh;
+            }
+            .block-left {
+                padding-top: 10px;
+            }
+        </style>        
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 block-left">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22835%22%20height%3D%22250%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20835%20250%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_178b24befee%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A42pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_178b24befee%22%3E%3Crect%20width%3D%22835%22%20height%3D%22250%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22310.0625%22%20y%3D%22143.9%22%3E835x250%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" 
+                        class="img-fluid" alt="Responsive image">
+                    <br><br>
+                    <h6>Bienvenido:</h6>
+                    <hr>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action" onclick="_setLocationView('150125')">
+                            <i class="fa fa-map-marker"></i>&nbsp;
+                            Puente Piedra
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" onclick="_setLocationView('150132')">
+                            <i class="fa fa-map-marker"></i>&nbsp;
+                            San Juan de Lurigancho
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" onclick="_setLocationView('150131')">
+                            <i class="fa fa-map-marker"></i>&nbsp;
+                            San Isidro
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-10" style="padding: 0;">
+                    <div id="map" class="map"></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            /* BASEMAP */
+            let basemaps = {
+                "MAPBOX - Streets v11": L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw", {
+                    attribution: "Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",id: "mapbox/streets-v11",maxZoom: 30
+                }),
+                "OSM - Open Streets Map": L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    attribution: "&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",maxZoom: 30
+                }),
+            };
+            /* MAP */
+            var map = L.map("map", {
+                center: [-11.8667,-77.0769], zoom: 13,
+                layers: [basemaps["MAPBOX - Streets v11"]]
+            });
+            /* LAYERS */
+            L.control.layers(basemaps).addTo(map);
+            /* coordinate - Límite político */
+            let _setLocationView = function(coordinate) {
+                try {
+                    const numeroObtenido =  coordinate == '150132' ? [-12.0294,-77.0103] :
+                                            coordinate == '150131' ? [-12.0989,-77.0347]:
+                                            [-11.8667,-77.0769];
+                    map.setView(numeroObtenido, 13);
+                } catch (error) {
+                    console.error(`Error: _setLocationView ${error.name} - ${error.message}`)
+                }
+            }
+        </script>
+        <!--
+            Name App 	: Leaflet
+            Description	: Se muestra la locación de algunos distritos.
+            Created 	: Heber DANIEL Ramos Mendoza (HDRamosMendoza)
+            Email		: heber.daniel.ramos.mendoza@gmail.com
+            Position 	: GIS Developer
+            Location 	: Perú/Lima/San Juan de Lurigancho
+            Social media: HDRamosMendoza
+            Phone		: 999130638
+            Web			: https://hdramosmendoza.github.io/Perfil-Profesional/
+            Copyright	: Heber Daniel Ramos Mendoza
+            Licence		: Favor de mencionar al autor
+        -->
+    </body>
+</html>
