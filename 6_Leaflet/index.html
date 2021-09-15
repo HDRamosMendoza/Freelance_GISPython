@@ -32,6 +32,16 @@
                 overflow-y: scroll;
                 height: 170px;
             }
+            .tableScroll table td {
+                position: relative;
+            }
+            .tableScroll table td > input {
+                top:0;
+                left:0;
+                margin: 0;
+                width: 100%;
+                box-sizing: border-box;
+            }
         </style>
     </head>
     <body>
@@ -86,7 +96,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="text" class="input-sm text-right"  placeholder="#"/>
+                                            <input type="text" class="input-sm text-right"  style="width:100%" placeholder="#"/>
                                         </td>
                                         <td>
                                             <input type="text" class="input-sm text-right"  placeholder="#"/>
