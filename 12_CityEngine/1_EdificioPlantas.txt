@@ -1,0 +1,57 @@
+/**
+ * File:    rule_daniel_tu_terror.cga
+ * Created: 3 Oct 2021 03:00:09 GMT
+ * Author:  DanielRamos
+ */
+
+version "2019.0" 
+
+import Building_Mass_Texturizer:"/ESRI.lib/rules/Buildings/Building_Mass_Texturizer.cga"
+import Plant_Distributor:"/ESRI.lib/rules/Plants/Plant_Distributor.cga"
+
+@Handle(shape=Mass)
+@Range(4,250)
+attr height = 10
+attr width = 15
+
+@StartRule
+Lot -->
+	shapeL(width,width)
+		{ shape: Footprint | remainder: SubLot }
+
+SubLot -->
+	shapeL(width*2,width*2)
+		{ shape: OpenSpace | remainder: Footprint }
+	
+Footprint --> 
+	extrude(height) Mass
+
+Mass -->
+	Building_Mass_Texturizer.Generate
+	comp(f){ top: Roof }
+
+/*
+Mass -->
+	Building_Mass_Texturizer.Generate
+*/	
+	
+OpenSpace -->
+	Plant_Distributor.Generate
+		
+Roof --> 
+	Plant_Distributor.Generate
+	
+/*
+import Building_Mass_Texturizer:"/ESRI.lib/rules/Buildings/Building_Mass_Texturizer.cga"
+
+@Handle(shape=Mass)
+@Range(4,250)
+attr height = 10
+
+@StartRule
+Lot -->
+	extrude(height) Mass
+		
+Mass -->
+	Building_Mass_Texturizer.Generate
+*/
