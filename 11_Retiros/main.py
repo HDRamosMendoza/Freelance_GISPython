@@ -1,5 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+	Name App 	: Hallar la áreas verdes de retiros de lotes
+	Description	: Se calcular los angulos interiores de un polígono.
+	Created 	: Heber DANIEL Ramos Mendoza (HDRamosMendoza)
+	Email		: heber.daniel.ramos.mendoza@gmail.com
+	Position 	: GIS Developer
+	Location 	: Perú/Lima/San Juan de Lurigancho
+	Social media: HDRamosMendoza
+	Phone		: 999130638
+	Web			: https://hdramosmendoza.github.io/Perfil-Profesional/
+	Copyright	: Heber Daniel Ramos Mendoza
+	Licence		: Favor de mencionar al autor
+"""
+
 import arcpy
 import os
 import shutil
@@ -7,20 +21,20 @@ import shutil
 arcpy.SpatialReference(4326)
 arcpy.env.workspace = os.path.join(os.getcwd(), 'SHP')
 arr_retiro = [];
-arr_merge = [];
+arr_merge  = [];
 
 _inFC_LoteFrente = os.path.join(arcpy.env.workspace, "Frente_Lote.shp")
 arcpy.MakeFeatureLayer_management(_inFC_LoteFrente, "TEMP_LoteFrente")
-
 _inFC_LoteUrbano = os.path.join(arcpy.env.workspace, "Lote_urbano.shp")
 arcpy.MakeFeatureLayer_management(_inFC_LoteUrbano, "TEMP_LoteUrbano")
+
 def removeFile(path):
 	if os.path.isdir(path):
 		shutil.rmtree(path)
 	os.makedirs(path)
 
 def main():
-	removeFile(os.path.join(arcpy.env.workspace, 'Producto'))	
+	removeFile(os.path.join(arcpy.env.workspace, 'Producto'))
 	with arcpy.da.SearchCursor("TEMP_LoteFrente", ["rv_retiro"]) as cursorRetiro:
 		for row in cursorRetiro:
 			if row[0] not in arr_retiro:
