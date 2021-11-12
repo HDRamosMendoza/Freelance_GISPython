@@ -19,9 +19,16 @@ import os
 import shutil
 
 arcpy.SpatialReference(4326)
+arcpy.env.addOutputsToMap = False
+arcpy.env.overwriteOutput = True
 arcpy.env.workspace = os.path.join(os.getcwd(), 'SHP')
-arr_retiro = [];
-arr_merge  = [];
+
+#_inLoteFrente = arcpy.GetParameterAsText(0)
+#_inLoteUrbano = arcpy.GetParameterAsText(1)
+
+arr_retiro = []
+arr_merge  = []
+
 
 _inFC_LoteFrente = os.path.join(arcpy.env.workspace, "Frente_Lote.shp")
 arcpy.MakeFeatureLayer_management(_inFC_LoteFrente, "TEMP_LoteFrente")
@@ -106,6 +113,8 @@ def main():
 				"CLIP_LoteRetiro_{}.shp".format(str(_item).replace('.0','').replace('.',''))
 			)
 		)
+
+	arcpy.AddMessage("Proceso finalizado")
 
 if __name__ == "__main__":
     main()
