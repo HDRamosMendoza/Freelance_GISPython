@@ -18,7 +18,7 @@ import arcpy
 import os
 import shutil
 
-arcpy.SpatialReference(4326)
+arcpy.SpatialReference(32718) #4326
 arcpy.env.addOutputsToMap = False
 arcpy.env.overwriteOutput = True
 arcpy.env.workspace = os.path.join(os.getcwd(), 'SHP')
