@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 	Name App 	: Hallar la áreas verdes de retiros de lotes
-	Description	: Se calcular los angulos interiores de un polígono.
+	Description	: Se obtiene las los retiros por lote (su área verde)
 	Created 	: Heber DANIEL Ramos Mendoza (HDRamosMendoza)
 	Email		: heber.daniel.ramos.mendoza@gmail.com
 	Position 	: GIS Developer
