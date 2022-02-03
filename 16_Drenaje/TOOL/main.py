@@ -4,9 +4,8 @@
 import os
 import arcpy 
 
-arcpy.CheckOutExtension('defense')
 arcpy.SpatialReference(4326)
-arcpy.env.overwriteOutput = 1
+arcpy.env.overwriteOutput = True 
 
 nameGDB  	= 'TEMP.gdb'
 
@@ -86,16 +85,26 @@ def main():
 			cluster_tolerance	= ""
 		)
 
+		# Calculate area
 		arcpy.AddField_management(_pathManzanaAll, "AREA_GRAFH", "DOUBLE", 9, "", "", "AREA_GRAFH", "NULLABLE", "NON_REQUIRED")
 		arcpy.CalculateField_management(_pathManzanaAll,"AREA_GRAFH","!shape.area@squaremeters!","PYTHON_9.3","#")
 
-		_expression = "getPoblacion(!AREA_GRAFH!,!AREA_GRAFP!,!POR_POB_C2!)"
-		_codeblock = """
-			def getPoblacion(GRAFH,GRAFP, C2):
-        		return ((GRAFH/GRAFP) * C2)
-        	"""
+		# Calculate people
+		_exprePeople = "getPoblacion(!AREA_GRAFH!,!AREA_GRAFP!,!POB_ABS_C2!)"
+		_blockPeople = """def getPoblacion(GRAFH,GRAFP,C2): return ((GRAFH/GRAFP) * C2)"""
 		arcpy.AddField_management(_pathManzanaAll, "POBLACION_HIJO", "DOUBLE", 9, "", "", "POBLACION_HIJO", "NULLABLE", "NON_REQUIRED")
-		arcpy.CalculateField_management(_pathManzanaAll, "POBLACION_HIJO", _expression, "PYTHON_9.3", _codeblock)
+		arcpy.CalculateField_management(_pathManzanaAll, "POBLACION_HIJO", _exprePeople, "PYTHON_9.3", _blockPeople)
+
+		# Calculate div 
+		_expreManzana = "getManzana(!AREA_GRAFH!,!AREA_GRAFP!)"
+		_blockManzana = """def getManzana(GRAFH,GRAFP): 
+			if((GRAFP - GRAFH) == 0):
+				return 1
+			else: 
+				return 0"""
+		#_blockManzana = """def getManzana(GRAFP,GRAFH): if (GRAFP / GRAFH) ==1 : return 0 else: return 1)"""
+		arcpy.AddField_management(_pathManzanaAll, "PARTICION", "SHORT")
+		arcpy.CalculateField_management(_pathManzanaAll, "PARTICION", _expreManzana, "PYTHON_9.3", _blockManzana)
 
    		arcpy.DeleteField_management(
    			_pathManzanaAll,
@@ -103,18 +112,19 @@ def main():
    				"FID_TEMP_MANZANA_POLYGON_UNION",
    				"FID_TEMP_MANZANA_POLYGON",
    				"FID_GPO_Manzana",
-   				"DISTRITO",
-   				"COD_GYZ",
+   				"DISTRITO", "COD_GYZ",
    				"FID_GPO_Drenaje",
-   				"FID",
-   				"ID_MZA",
-   				"Nº",
+   				"FID", "ID_MZA","Nº",
    				"NOMB_DPTO",
    				"NOMB_PROV",
    				"NOMB_DIST"
    			]
    		)
 
+		_pathManzanaParcial = os.path.join(pathGDBTemp, 'TEMP_MANZANA_PARCIAL')
+		_selectLyrLocation  = arcpy.SelectLayerByLocation_management('TEMP_MANZANA', 'INTERSECT', _pathDrenajeLine)
+		arcpy.CopyFeatures_management(_selectLyrLocation, _pathManzanaParcial)
+		
    		_arrFC.append(_pathDrenajeLine)
    		_arrFC.append(_pathManzanaLine)
    		_arrFC.append(_pathDrenajeLineClip)
