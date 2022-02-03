@@ -1,0 +1,29 @@
+intervienes 02 areas (en shp):
+- cutting 
+- no cutting
+
+se requiere usar el comad SPLIT para la operacion de corte
+-> IMPUT : 		MZA PADRE
+-> SPLIT FEATURE: 	ADREN
+-> SPLIT FIELD:		N_COD_GYZ
+
+Resultado debe guardarse en una geodatabase y debe almacenar dos tablas
+-> new _mza_padre
+-> new mza_hijo (las mzas cortadas)
+
+
+las tablas  debe tener la informacion:
+
+-> new _mza_padre
+- las mzas padres que se inteceptan deben marcarse (fDIVIDE=1), las que no fDIVIDE=0
+- cod mza
+- cod ine
+
+
+-> new mza_hijo
+- area total del lote padre
+- Poblacion del area Padre
+- area total del hijo
+- % Poblacion hijo
+- area de drenaje que las origin (ampo N_COD_GYZ) 
+
