@@ -4,7 +4,7 @@
 import os
 import arcpy 
 
-arcpy.SpatialReference(4326)
+arcpy.SpatialReference(32718)
 arcpy.env.overwriteOutput = True 
 
 nameGDB  	= 'TEMP.gdb'
